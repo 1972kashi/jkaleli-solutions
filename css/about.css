@@ -1,0 +1,35 @@
+.about-text {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.about-text .brand {
+  font-weight: 700;
+  font-family: "Syne", sans-serif;
+}
+
+.motto-card {
+  background: rgba(20, 60, 120, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin: 24px 20px;
+  text-align: center;
+}
+
+.motto-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.motto-text {
+  font-family: "Syne", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--cyan-glow);
+}
