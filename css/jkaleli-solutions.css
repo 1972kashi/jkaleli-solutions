@@ -79,25 +79,53 @@ nav button.active {
 }
 
 /* ── SECTIONS ── */
-.section { padding: 28px 20px 0; }
-
-.hero-text {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1.45;
-  color: var(--white);
-  max-width: 340px;
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: local('Bricolage Grotesque');
 }
 
-.hero-text .brand { color: var(--yellow); }
-.hero-text .brand-teal { color: var(--cyan-glow); }
+.section { padding: 28px 20px 0; }
+
+.hero-copy {
+  flex: 1 1 100%;
+  width: 100%;
+}
+
+.home-copy,
+.portfolio-copy,
+.about-story,
+.hero-copy {
+  padding: 0 20px 18px;
+  color: var(--white);
+  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.home-copy {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.home-copy p,
+.about-story p,
+.hero-copy p {
+  margin-bottom: 12px;
+}
+
+.brand { color: #2F2D21; }
+.brand-teal { color: #2F2D21; }
 
 .hero-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 18px;
 }
 
 .hero-mascot {
@@ -112,26 +140,12 @@ nav button.active {
   50% { transform: translateY(-10px); }
 }
 
-.home-copy,
-.portfolio-copy,
-.about-story {
-  padding: 0 20px 18px;
-  color: var(--text-light);
-  font-size: 0.95rem;
-  line-height: 1.75;
-}
-
-.home-copy p,
-.about-story p {
-  margin-bottom: 12px;
-}
-
 .home-features-row,
 .portfolio-highlights,
 .about-values-row,
 .services-benefits {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   padding: 0 20px 22px;
 }
@@ -187,11 +201,6 @@ nav button.active {
   font-weight: 600;
 }
 
-.about-values-row,
-.services-benefits {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .about-values-row .value-card,
 .services-benefits .benefit-card {
   min-height: 96px;
@@ -202,7 +211,17 @@ nav button.active {
   .portfolio-highlights,
   .about-values-row,
   .services-benefits {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .hero-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-mascot {
+    align-self: center;
+    margin-top: 18px;
   }
 }
 
@@ -260,27 +279,26 @@ nav button.active {
 
 .testimonials-row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 16px;
   padding: 0 20px;
-  overflow: hidden;
-  align-items: center;
+  align-items: stretch;
 }
 
 .testimonial-card {
   background: rgba(100,130,220,0.25);
   border-radius: 12px;
-  height: 90px;
-  width: 280px;
   border: 1px solid rgba(255,255,255,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.65rem;
+  padding: 18px 16px;
+  min-width: 240px;
+  flex: 1 1 220px;
   color: var(--text-muted);
   text-align: center;
-  padding: 8px;
-  flex: 0 0 auto;
+  font-size: 0.9rem;
+  line-height: 1.5;
   font-style: italic;
 }
 
@@ -336,17 +354,18 @@ nav button.active {
 
 /* ── ABOUT PAGE ── */
 .about-text {
-  font-size: 0.98rem;
-  line-height: 1.65;
-  font-weight: 500;
+  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
+  font-weight: 700;
   color: var(--white);
 }
 
-.about-text .brand { color: var(--yellow); font-weight: 700; font-family: 'Syne', sans-serif; }
-.about-text .brand-teal { color: var(--cyan-glow); }
+.about-text .brand { color: #2F2D21; font-weight: 700; font-family: 'Bricolage Grotesque', 'Syne', sans-serif; }
+.about-text .brand-teal { color: #2F2D21; }
 
 .motto-card {
-  background: radial-gradient(185deg, #737373 42%, #17155F 89%);
+  background: linear-gradient(135deg, rgba(26,175,160,0.9), rgba(36,56,137,0.95));
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 16px;
   padding: 28px 24px;
@@ -372,15 +391,15 @@ nav button.active {
 
 /* ── PORTFOLIO ── */
 .portfolio-hero {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.6;
+  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.9;
   color: var(--white);
-  max-width: 320px;
+  width: 100%;
 }
 
-.portfolio-hero .brand { color: var(--yellow); font-family: 'Syne', sans-serif; font-weight: 700; }
+.portfolio-hero .brand { color: #2F2D21; font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 700; }
 
 .portfolio-mascot { font-size: 3.5rem; flex-shrink: 0; }
 
@@ -443,17 +462,19 @@ nav button.active {
 
 /* ── SERVICES PAGE ── */
 .services-intro {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.2rem;
+  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-size: 15px;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.9;
   color: var(--white);
   padding: 0 20px;
 }
 
 .services-include {
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.9;
   color: var(--text-light);
   padding: 16px 20px 20px;
 }
