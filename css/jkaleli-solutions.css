@@ -28,7 +28,9 @@ body {
 /* ── CONSTRUCTION BANNER ── */
 .banner {
   background: rgba(0,0,0,0.35);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  background-clip: padding-box;
   border: 1px solid rgba(255,255,255,0.15);
   margin: 14px 16px 0;
   border-radius: 12px;
@@ -102,13 +104,13 @@ nav button.active {
   color: var(--white);
   font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.9;
 }
 
 .home-copy {
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .home-copy p,
@@ -147,7 +149,7 @@ nav button.active {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 0 20px 22px;
+  padding: 20px 20px 22px;
 }
 
 .feature-card,
@@ -327,8 +329,8 @@ nav button.active {
 }
 
 .btn-hire {
-  background: var(--red-btn);
-  color: var(--white);
+  background: var(--white);
+  color: var(--);
   border: none;
   border-radius: 6px;
   padding: 10px 24px;
@@ -337,7 +339,7 @@ nav button.active {
   font-weight: 700;
   letter-spacing: 0.06em;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.3s;
 }
 
 .btn-hire:hover { 
@@ -502,12 +504,11 @@ nav button.active {
 
 .service-card-img {
   width: 100%;
-  height: 110px;
-  object-fit: cover;
+  height: auto;
+  padding: 18px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
 }
 
 
@@ -527,7 +528,9 @@ nav button.active {
   position: fixed;
   inset: 0;
   background: rgba(10,20,60,0.92);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  background-clip: padding-box;
   z-index: 100;
   padding: 40px 24px;
   overflow-y: auto;
@@ -691,3 +694,448 @@ footer {
   font-size: 0.7rem;
   color: var(--text-muted);
 }
+
+/* ════════════════════════════════════════════════════════════ */
+/* ═   ENHANCED ANIMATIONS & VISUAL EFFECTS (NEW)  ═ */
+/* ════════════════════════════════════════════════════════════ */
+
+/* ── BACKGROUND CONTAINER WITH PARTICLES, ORBS & MESH ── */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── RADIAL GLOW ORBS ── */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(26,175,160,0.5) 0%, rgba(26,175,160,0.1) 100%);
+  top: 10%;
+  right: -100px;
+  animation: drift-orb-1 20s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(0,229,209,0.4) 0%, rgba(0,229,209,0.05) 100%);
+  bottom: 5%;
+  left: -80px;
+  animation: drift-orb-2 18s ease-in-out infinite;
+}
+
+@keyframes drift-orb-1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(50px, -40px); }
+  50% { transform: translate(0, -80px); }
+  75% { transform: translate(-50px, -40px); }
+}
+
+@keyframes drift-orb-2 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(60px, 50px); }
+  66% { transform: translate(-60px, 50px); }
+}
+
+/* ── DOT GRID MESH OVERLAY ── */
+.dot-grid-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: 0 0;
+  z-index: 1;
+}
+
+/* ── SCROLL REVEAL ANIMATIONS FOR CARDS ── */
+@keyframes scrollRevealFade {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-card.reveal,
+.highlight-card.reveal,
+.value-card.reveal,
+.benefit-card.reveal,
+.testimonial-card.reveal,
+.service-icon-card.reveal,
+.portfolio-item.reveal,
+.service-card.reveal {
+  animation: scrollRevealFade 0.7s ease-out forwards;
+  opacity: 0;
+}
+
+/* Stagger delay for cards - each row gets staggered */
+.feature-card.reveal:nth-child(1) { animation-delay: 0s; }
+.feature-card.reveal:nth-child(2) { animation-delay: 0.15s; }
+.feature-card.reveal:nth-child(3) { animation-delay: 0.3s; }
+
+.highlight-card.reveal:nth-child(1) { animation-delay: 0s; }
+.highlight-card.reveal:nth-child(2) { animation-delay: 0.15s; }
+.highlight-card.reveal:nth-child(3) { animation-delay: 0.3s; }
+
+.value-card.reveal:nth-child(1) { animation-delay: 0s; }
+.value-card.reveal:nth-child(2) { animation-delay: 0.15s; }
+.value-card.reveal:nth-child(3) { animation-delay: 0.3s; }
+
+.benefit-card.reveal:nth-child(1) { animation-delay: 0s; }
+.benefit-card.reveal:nth-child(2) { animation-delay: 0.15s; }
+.benefit-card.reveal:nth-child(3) { animation-delay: 0.3s; }
+
+.testimonial-card.reveal:nth-child(1) { animation-delay: 0s; }
+.testimonial-card.reveal:nth-child(2) { animation-delay: 0.15s; }
+.testimonial-card.reveal:nth-child(3) { animation-delay: 0.3s; }
+.testimonial-card.reveal:nth-child(4) { animation-delay: 0.45s; }
+
+.service-icon-card.reveal:nth-child(1) { animation-delay: 0s; }
+.service-icon-card.reveal:nth-child(2) { animation-delay: 0.1s; }
+.service-icon-card.reveal:nth-child(3) { animation-delay: 0.2s; }
+.service-icon-card.reveal:nth-child(4) { animation-delay: 0.3s; }
+.service-icon-card.reveal:nth-child(5) { animation-delay: 0.4s; }
+.service-icon-card.reveal:nth-child(6) { animation-delay: 0.5s; }
+
+.portfolio-item.reveal:nth-child(1) { animation-delay: 0s; }
+.portfolio-item.reveal:nth-child(2) { animation-delay: 0.1s; }
+.portfolio-item.reveal:nth-child(3) { animation-delay: 0.2s; }
+.portfolio-item.reveal:nth-child(4) { animation-delay: 0.3s; }
+.portfolio-item.reveal:nth-child(5) { animation-delay: 0.4s; }
+.portfolio-item.reveal:nth-child(6) { animation-delay: 0.5s; }
+
+.service-card.reveal:nth-child(1) { animation-delay: 0s; }
+.service-card.reveal:nth-child(2) { animation-delay: 0.1s; }
+.service-card.reveal:nth-child(3) { animation-delay: 0.2s; }
+.service-card.reveal:nth-child(4) { animation-delay: 0.3s; }
+.service-card.reveal:nth-child(5) { animation-delay: 0.4s; }
+.service-card.reveal:nth-child(6) { animation-delay: 0.5s; }
+
+/* ── ENHANCED NAV - GLASSY BACKDROP ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,0.05);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background-clip: padding-box;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+nav button {
+  transition: all 0.32s ease;
+}
+
+nav button:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(0,229,209,0.4);
+}
+
+/* ── SERVICE ICON CARDS - BOUNCE & INNER GLOW ── */
+.service-icon-card {
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.service-icon-card .icon {
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 2;
+}
+
+.service-icon-card:hover .icon {
+  transform: translateY(-8px) scale(1.15);
+  filter: drop-shadow(0 0 20px rgba(0,229,209,0.6));
+}
+
+.service-icon-card::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(circle, rgba(0,229,209,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.service-icon-card:hover::before {
+  opacity: 1;
+}
+
+/* ── FEATURE CARDS - TEAL BOTTOM BORDER SWEEP ── */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+  transition: left 0.35s ease;
+}
+
+.feature-card:hover::after {
+  left: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.14);
+  box-shadow: 0 8px 24px rgba(0,229,209,0.15);
+}
+
+/* ── BENEFIT CARDS - SLIDE RIGHT ON HOVER ── */
+.benefit-card {
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,229,209,0.1);
+  transition: left 0.35s ease;
+  pointer-events: none;
+}
+
+.benefit-card:hover {
+  transform: translateX(8px);
+  border-color: rgba(0,229,209,0.4);
+}
+
+.benefit-card:hover::before {
+  left: 100%;
+}
+
+/* ── PORTFOLIO ITEMS - CATEGORY BADGE ── */
+.portfolio-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.portfolio-item[data-cat="designs"]::before {
+  content: 'designs';
+}
+
+.portfolio-item[data-cat="websites"]::before {
+  content: 'websites';
+}
+
+.portfolio-item::before {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,229,209,0.9);
+  color: var(--navy);
+  font-size: 0.55rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  transform: scale(0.8) translateY(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+}
+
+.portfolio-item:hover::before {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── PORTFOLIO MASCOT - ROTATION ── */
+.portfolio-mascot {
+  animation: float 3s ease-in-out infinite, rotate-subtle 8s linear infinite;
+}
+
+@keyframes rotate-subtle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* ── MOTTO CARD - ROTATING RADIAL GLOW ── */
+.motto-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.motto-card::before {
+  content: '';
+  position: absolute;
+  inset: -100px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(0,229,209,0) 0deg,
+    rgba(0,229,209,0.3) 90deg,
+    rgba(0,229,209,0) 180deg
+  );
+  animation: rotate-glow 15s linear infinite;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+@keyframes rotate-glow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.motto-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── SERVICE CARDS - IMAGE ZOOM ON HOVER ── */
+.service-card-img {
+  transition: transform 0.4s ease, filter 0.4s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.service-card-img img {
+  transition: transform 0.4s ease;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 170px;
+  object-fit: contain;
+  display: block;
+}
+
+.service-card:hover .service-card-img img {
+  transform: scale(1.12);
+}
+
+/* ── MASCOT FLOATING WITH ROTATION ── */
+.hero-mascot {
+  animation: float 3.5s ease-in-out infinite, subtle-rotation 6s ease-in-out infinite;
+}
+
+@keyframes subtle-rotation {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.5deg); }
+}
+
+/* ── TESTIMONIAL CARDS - DECORATIVE QUOTE MARK ── */
+.testimonial-card {
+  position: relative;
+  padding-left: 36px;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  font-size: 3rem;
+  color: var(--cyan-glow);
+  opacity: 0.4;
+  font-family: 'Syne', serif;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover::before {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
+
+/* ── ENHANCED CARD GLASSMORPHISM ── */
+.feature-card,
+.highlight-card,
+.value-card,
+.benefit-card,
+.service-card,
+.testimonial-card,
+.portfolio-item {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  transition: all 0.35s ease;
+}
+
+.feature-card:hover,
+.highlight-card:hover,
+.value-card:hover,
+.benefit-card:hover,
+.service-card:hover,
+.testimonial-card:hover,
+.portfolio-item:hover {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(0,229,209,0.3);
+}
+
+/* ── VIEWPORT RELATIVE (Z-INDEX FIX) ── */
+.page { position: relative; z-index: 10; }
+
+@media (max-width: 860px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .services-benefits {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .orb-1, .orb-2 {
+    filter: blur(60px);
+    opacity: 0.15;
+  }
+  
+  nav {
+    position: relative;
+  }
+}
+
