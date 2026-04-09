@@ -2,7 +2,10 @@
   --home-green: #2EC29F;
   --home-indigo: #2825A1;
   --navy: #151022;
+  --navy-dark: #0f1a3c;
+  --blue-mid: #2541b2;
   --white: #ffffff;
+  --text-dark: #111111;
   --grey-15: rgba(255, 255, 255, 0.15);
   --text-light: rgba(255,255,255,0.85);
   --text-muted: rgba(255,255,255,0.55);
@@ -237,7 +240,7 @@ body {
 .footer-layout {
   display: grid;
   grid-template-columns: 33.57vw 1fr 1fr;
-  max-grid-template-columns: 141px 1fr 1fr;
+  
   gap: 2.4vw;
   align-items: start;
   width: 100%;
@@ -245,7 +248,7 @@ body {
 
 .email-form {
   width: 33.57vw;
-  max-width: 141px;
+  max-width: 100px;
 }
 
 .email-form input,
