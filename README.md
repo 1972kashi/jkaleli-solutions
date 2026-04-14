@@ -1,2 +1,2 @@
 # jkaleli-solutions
-A  website for viewing
+A  website used to represent jkaleli Solutions
