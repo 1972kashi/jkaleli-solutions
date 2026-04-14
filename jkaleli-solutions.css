@@ -188,7 +188,7 @@ nav button.active {
 
 .hero-copy {
   flex: 1 1 230px;
-  min-width: 320px;
+  min-width: 0;
   width: auto;
   padding: 1px 0px 18px;
   color: var(--white);
@@ -804,9 +804,11 @@ nav button.active {
 @media (max-width: 768px) {
   .testimonials-row {
     padding: 0 14px;
+    flex-direction: column;
   }
   .testimonial-card {
-    width: 240px;
+    width: 100%;
+    min-width: 0;
   }
 }
 
@@ -1334,7 +1336,7 @@ footer {
 
 .email-form input,
 .email-form textarea {
-  width: 70%;
+  width: 100%;
   height: 30%;
   background: var(--white);
   border: 2px solid var(--blue-mid);
@@ -1655,4 +1657,42 @@ footer {
   0%, 100% { transform: translate(0, 0); }
   33% { transform: translate(60px, 50px); }
   66% { transform: translate(-60px, 50px); }
+}
+@media (max-width: 600px) {
+  /* Nav: stack buttons below logo */
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .nav-buttons {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  nav button {
+    flex: 1 1 auto;
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+
+  /* Footer: single column */
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  /* Roadmap: tighten steps */
+  .road-step { min-width: 70px; padding: 8px 10px; }
+  .road-segment { min-width: 16px; flex: 0 0 16px; }
+  .road-arrow { display: none; }
+
+  /* General padding */
+  .section { padding: 18px 14px 0; }
+  .home-copy, .portfolio-copy, .about-story { padding-left: 14px; padding-right: 14px; font-size: 16px; }
+  .we-help { margin: 20px 14px 12px; }
+  .motto-card { margin: 16px 14px; }
 }
