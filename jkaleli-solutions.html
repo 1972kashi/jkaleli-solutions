@@ -48,7 +48,7 @@
 
 <!-- ═══════════════ HOME PAGE ═══════════════ -->
 <div id="page-home" class="page active">
-  <section class="Section-home1"> 
+  <section class="Section-home1 "> 
   <div class="section hero-row">
     <div class="hero-copy home-copy">
       <p>Hello, welcome to <span class="brand">JKALELI</span> <span class="brand-teal">Solutions</span> where we turn ideas into reality. Join us and we will assist you in transforming your startup, currently running or your idea into an inspiration to others.</p>
@@ -60,32 +60,44 @@
     <div class="road-label">OUR ROADMAP</div>
     <div class="road-track">
       <div class="road-step">
-        <span class="step-number">1</span>
+        <span class="step-number" img="../PORT/Discover.svg" data-title="Discovery" 
+            data-text="Conducting deep dive research into market trends and user behavior.">1</span>
         <span class="step-copy">Discover</span>
+         
       </div>
-      <div class="road-segment"></div>
+      <div class="road-segment" ></div>
       <div class="road-step">
-        <span class="step-number">2</span>
+        <span class="step-number" img="../PORT/Design.svg" data-title="UX/UI Design" 
+            data-text="Crafting intuitive interfaces and seamless user journeys.">2</span>
         <span class="step-copy">Design</span>
       </div>
       <div class="road-segment"></div>
       <div class="road-step">
-        <span class="step-number">3</span>
-        <span class="step-copy">Launch</span>
+        <span class="step-number" img="../PORT/Develop.svg" data-title="Development" data-text="Development begins.">3</span>
+        <span class="step-copy">Develop</span>
       </div>
         <div class="road-segment"></div>
       <div class="road-step">
-        <span class="step-number">3</span>
-        <span class="step-copy">Launch</span>
+        <span class="step-number" img="../PORT/Test.svg" data-title="Test" >4</span>
+        <span class="step-copy">Test</span>
       </div>
         <div class="road-segment"></div>
       <div class="road-step">
-        <span class="step-number">3</span>
-        <span class="step-copy">Launch</span>
+        <span class="step-number" img="../PORT/Launch.svg" data-title="Deployment">5</span>
+        <span class="step-copy">launch</span>
       </div>
       <div class="road-arrow">→</div>
     </div>
   </div>
+  <div id="modal-overlay" class="modal-overlay">
+  <div id="road-modal" class="road-modal">
+    <div class="modal-image" id="modal-img"></div>
+    <div class="modal-content">
+      <h4 id="modal-title">Step Title</h4>
+      <p id="modal-text">Description goes here.</p>
+    </div>
+  </div>
+</div>
 
   <div class="home-copy">
     <p>Every project begins with a deep listening session so we can understand your audience, your goals and the story behind your brand.
@@ -129,6 +141,7 @@
     </div>
   </div>
 
+
   <div class="home-features-row">
     <button type="button" class="feature-card" data-page="services">
       <div class="feature-icon">⚡</div>
@@ -155,13 +168,15 @@
     <div class="testimonial-card">"The team understood our brand instantly and created a digital presence that feels authentic." — Brand manager</div>
   </div>
 
-</div>
+
+ 
 </section>
-<section>
- <div class="hire-row">
+
+<div class="hire-row">
     <button type="button" class="nav-btn btn-hire" data-page="services">HIRE US</button>
   </div>
-  </section>
+ </div>
+
 <div id="home-footer"></div>
 <!-- ═══════════════ PORTFOLIO PAGE ═══════════════ -->
 <div id="page-portfolio" class="page">

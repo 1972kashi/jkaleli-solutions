@@ -277,3 +277,49 @@ if (document.readyState === "loading") {
 } else {
   init();
 }
+
+const overlay = document.getElementById('modal-overlay');
+const mImg = document.getElementById('modal-img');
+const mTitle = document.getElementById('modal-title');
+const mText = document.getElementById('modal-text');
+
+// Detect touch devices
+const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+function openModal(el) {
+  const title = el.getAttribute('data-title');
+  const text = el.getAttribute('data-text');
+  const imgPath = el.getAttribute('img');
+
+  mTitle.innerText = title;
+  mText.innerText = text;
+  mImg.style.backgroundImage = `url('${imgPath}')`;
+  
+  overlay.classList.add('active');
+}
+
+function closeModal() {
+  overlay.classList.remove('active');
+}
+
+// Select only the step numbers as triggers
+const triggers = document.querySelectorAll('.step-number');
+
+triggers.forEach(num => {
+  if (isTouch) {
+    // Mobile: Tap to open
+    num.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openModal(num);
+    });
+  } else {
+    // Laptop: Hover to open, leave to close
+    num.addEventListener('mouseenter', () => openModal(num));
+    num.addEventListener('mouseleave', closeModal);
+  }
+});
+
+// For mobile: Tap overlay background to close
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});

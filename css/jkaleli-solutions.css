@@ -54,7 +54,6 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  position: sticky;
   top: 0;
   z-index: 50;
   background: #17155F;
@@ -63,11 +62,13 @@ nav {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+
 .nav-logo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   line-height: 1;
+  
 }
 
 .nav-logo .jk-top {
@@ -80,7 +81,7 @@ nav {
   font-family: 'Oswald', Arial, sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: var(--white);
+  color: #b0b0b0;
   letter-spacing: 1px;
 }
 
@@ -88,7 +89,7 @@ nav {
   font-family: 'Oswald', Arial, sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: var(--white);
+  color: #5ab4cc;
   letter-spacing: 1px;
 }
 
@@ -97,14 +98,14 @@ nav {
   width: auto;
   background: transparent;
   margin-right: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .nav-logo .jk-sub {
   font-family: 'Oswald', Arial, sans-serif;
   font-size: 10px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.8);
+  color:  #9a9a9a;
   letter-spacing: 1.5px;
   margin-top: 0;
   padding-left: 0;
@@ -316,7 +317,7 @@ nav button.active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 12px 16px;
   background: rgba(255,255,255,0.1);
   border-radius: 16px;
@@ -334,6 +335,7 @@ nav button.active {
   background: var(--teal);
   color: #fff;
   font-weight: 700;
+  
 }
 
 .step-copy {
@@ -371,6 +373,67 @@ nav button.active {
   }
 }
 
+/* The Background Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 9999;
+}
+
+/* The Modal Box */
+.road-modal {
+  width: 90%;
+  max-width: 400px;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Shown State */
+.modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+.modal-overlay.active .road-modal {
+  transform: scale(1);
+}
+
+.modal-image {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-color: #f4f7fa;
+}
+
+.modal-content {
+  padding: 24px;
+  text-align: center;
+}
+
+.modal-content h4 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #1e2b3c;
+}
+
+.modal-content p {
+  color: #5a6e7c;
+  line-height: 1.6;
+}
 /* ════════════════════════════════════════════════════════════ */
 /* ═   8. HOME FEATURES SECTION  ═ */
 /* ════════════════════════════════════════════════════════════ */
@@ -819,15 +882,15 @@ nav button.active {
 
 .about-text {
   font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
-  font-size: 15px;
+  font-size: 19px;
   line-height: 1.9;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--white);
 }
 
 .about-text .brand {
   color: #2F2D21;
-  font-weight: 700;
+  font-weight: 500;
   font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
 }
 
@@ -906,11 +969,12 @@ nav button.active {
 
 .portfolio-hero {
   font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 19px;
+  font-weight: 500;
   line-height: 1.9;
   color: var(--white);
   width: 100%;
+   
 }
 
 .portfolio-hero .brand {
@@ -923,9 +987,14 @@ nav button.active {
   padding: 0 20px 18px;
   color: var(--white);
   font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 500;
   line-height: 1.9;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
 }
 
 .portfolio-copy p {
@@ -966,13 +1035,21 @@ nav button.active {
   transition: all 0.2s;
   border: 1px solid rgba(255,255,255,0.3);
   background: transparent;
-  color: var(--white);
+  color: var(--navy);
+  border-color: black;
 }
 
 .filter-btn.active {
-  background: var(--white);
-  color: var(--navy);
+  background: #17155F;
+  color: var(--white);
   border-color: var(--white);
+}
+
+.filter-btn:hover{
+
+background: #151022;
+color: var(--white);
+border-color: whitesmoke;
 }
 
 .portfolio-grid {
@@ -1058,8 +1135,8 @@ nav button.active {
 }
 .services-intro {
   font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 19px;
+  font-weight: 500;
   line-height: 1.9;
   color: var(--white);
   padding: 0 20px;
@@ -1067,8 +1144,8 @@ nav button.active {
 
 .services-include {
   font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 19px;
+  font-weight: 500;
   line-height: 1.9;
   color: var(--text-light);
   padding: 16px 20px 20px;
@@ -1254,14 +1331,14 @@ footer {
 
 .email-form input,
 .email-form textarea {
-  width: 100%;
+  width: 70%;
+  height: 30%;
   background: var(--white);
   border: 2px solid var(--blue-mid);
   border-radius: 8px;
   padding: 9px 12px;
-  color: var(--blue-mid);
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
+  font-size: 1.2rem;
   margin-bottom: 8px;
   outline: none;
   transition: border-color 0.2s;
@@ -1274,7 +1351,7 @@ footer {
 
 .email-form input::placeholder,
 .email-form textarea::placeholder {
-  color: rgba(255,255,255,0.35);
+  font-size: 18px;
 }
 
 .email-form textarea {
