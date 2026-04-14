@@ -958,8 +958,11 @@ nav button.active {
   }
 
   .hero-mascot {
-    align-self: center;
-    margin-top: 18px;
+     font-size: clamp(3.8rem, 4vw, 5.5rem);
+  flex: 0 0 auto;
+  margin-left: auto;
+  max-width: 100px;
+  animation: float 3s ease-in-out infinite, subtle-rotation 6s ease-in-out infinite;
   }
 }
 
