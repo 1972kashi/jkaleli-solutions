@@ -1707,7 +1707,6 @@ html {
 
 body {
   overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
 }
 
 /* ── Images never overflow ── */
@@ -2032,7 +2031,6 @@ img {
 
   .value-card {
     width: 100%;
-    min-height: auto;
     padding: 14px;
   }
 }
