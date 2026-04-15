@@ -2033,7 +2033,7 @@ img {
 
   .value-card {
     width: 100%;
-    min-height: auto;
+    min-height: 100%;
     padding: 14px;
   }
 }
@@ -2059,7 +2059,7 @@ img {
 
   .benefit-card {
     width: 100%;
-    min-height: auto;
+    min-height: 100%;
     padding: 14px;
   }
 
