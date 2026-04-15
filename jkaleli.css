@@ -458,6 +458,7 @@ nav button.active {
 }
 
 .feature-card {
+  width: auto;
   background: #FDFEE9;
   border: 2px solid var(--blue-mid);
   box-shadow: 0 10px 24px rgba(37, 65, 178, 0.08);
@@ -495,6 +496,7 @@ nav button.active {
 }
 
 .feature-icon {
+  width: auto;
   font-size: 1.8rem;
   margin-bottom: 12px;
 }
@@ -529,6 +531,7 @@ nav button.active {
 }
 
 .highlight-card {
+  width: auto;
   background: var(--white);
   border: 2px solid var(--blue-mid);
   box-shadow: 0 10px 24px rgba(37, 65, 178, 0.08);
