@@ -1707,7 +1707,8 @@ html {
 
 body {
   overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: auto;
+  text-size-adjust: auto;
 }
 
 /* ── Images never overflow ── */
