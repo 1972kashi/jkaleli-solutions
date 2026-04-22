@@ -1289,7 +1289,7 @@ nav {
 /* ════════════════════════════════════════════════════════════ */
 
 .about-text {
-  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-family: 'Bricolage Grotesque',  sans-serif;
   font-size: var(--step-0);
   line-height: 1.9;
   font-weight: 500;
@@ -1547,7 +1547,7 @@ border-color: whitesmoke;
   background: var(white);
 }
 .services-intro {
-  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-family: 'Bricolage Grotesque',  sans-serif;
   font-size: 19px;
   font-weight: 500;
   line-height: 1.9;
@@ -1556,7 +1556,7 @@ border-color: whitesmoke;
 }
 
 .services-include {
-  font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
+  font-family: 'Bricolage Grotesque',  sans-serif;
   font-size: var(--step-0);
   font-weight: 500;
   line-height: 1.9;
