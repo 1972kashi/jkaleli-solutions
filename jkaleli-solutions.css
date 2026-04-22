@@ -23,6 +23,277 @@
   --card-border: rgba(255,255,255,0.12);
 }
 
+/* ════════════════════════════════════════════════════════════ */
+/* ═   2. GRID CONTAINER & RESPONSIVE LAYOUT  ═               */
+/* ════════════════════════════════════════════════════════════ */
+
+
+
+/* ── Assign a grid-area name to every component ── */
+.grid-container > nav,
+nav                     { grid-area: nav; }
+.section-1              { grid-area: section-1; }
+.section-hero           { grid-area: section-hero; }
+.section-2              { grid-area: section-2; }
+.services-grid          { grid-area: service-grid; }
+.home-features-row      { grid-area: home-features; }
+.views                  { grid-area: views; }
+.views-label + .testimonials-row,
+.testimonials-row       { grid-area: views; }
+.hire-row               { grid-area: hire-btn; }
+.projects-label,
+.filter-row             { grid-area: projects-label; }
+#home-footer,
+#portfolio-footer,
+#about-footer,
+#services-footer        { grid-area: footer; }
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE  (< 600px) — single column, every area stacked
+   ════════════════════════════════════════════════════════════ */
+.grid-container {
+  display: grid;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'nav'
+    'section-1'
+    'section-hero'
+    'section-2'
+    'service-grid'
+    'home-features'
+    'views'
+    'hire-btn'
+    'projects-label'
+    'footer';
+}
+
+
+.page {
+  display: none;
+  grid-column: 1 / -1;        
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'section-1'
+    'section-hero'
+    'section-2'
+    'service-grid'
+    'home-features'
+    'views'
+    'hire-btn'
+    'projects-label'
+    'footer';
+  position: relative;
+  z-index: 10;
+}
+
+.page.active {
+  display: grid;
+  animation: fadeIn 0.4s ease;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SMALL  (≥ 600px) — still single column but with breathing room
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'nav'
+      'section-1'
+      'section-hero'
+      'section-2'
+      'service-grid'
+      'home-features'
+      'views'
+      'hire-btn'
+      'projects-label'
+      'footer';
+  }
+
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'section-1'
+      'section-hero'
+      'section-2'
+      'service-grid'
+      'home-features'
+      'views'
+      'hire-btn'
+      'projects-label'
+      'footer';
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   MEDIUM  (≥ 768px) — 2 columns: content | hire button sidebar
+   service-grid and home-features split 50/50
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr 160px;
+    grid-template-areas:
+      'nav           nav'
+      'section-1     section-1'
+      'section-hero  section-hero'
+      'section-2     hire-btn'
+      'service-grid  service-grid'
+      'home-features home-features'
+      'views         views'
+      'projects-label projects-label'
+      'footer        footer';
+  }
+
+  .page {
+    grid-template-columns: 1fr 160px;
+    grid-template-areas:
+      'section-1      section-1'
+      'section-hero   section-hero'
+      'section-2      hire-btn'
+      'service-grid   service-grid'
+      'home-features  home-features'
+      'views          views'
+      'projects-label projects-label'
+      'footer         footer';
+  }
+
+  .hire-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 12px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   LARGE  (≥ 992px) — 3 columns: hero text | mascot | hire btn
+   service-grid uses all 3 cols; features split 2|1
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 992px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr 200px;
+    grid-template-areas:
+      'nav            nav            nav'
+      'section-1      section-1      section-1'
+      'section-hero   section-hero   hire-btn'
+      'section-2      section-2      hire-btn'
+      'service-grid   service-grid   service-grid'
+      'home-features  home-features  home-features'
+      'views          views          views'
+      'projects-label projects-label projects-label'
+      'footer         footer         footer';
+  }
+
+  .page {
+    grid-template-columns: 1fr 1fr 200px;
+    grid-template-areas:
+      'section-1      section-1      section-1'
+      'section-hero   section-hero   hire-btn'
+      'section-2      section-2      hire-btn'
+      'service-grid   service-grid   service-grid'
+      'home-features  home-features  home-features'
+      'views          views          views'
+      'projects-label projects-label projects-label'
+      'footer         footer         footer';
+  }
+
+  .hire-row {
+    padding: 20px;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   XL  (≥ 1200px) — 4 columns: more breathing room, features side by side
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 1200px) {
+  .grid-container {
+    padding: 0 24px;
+    grid-template-columns: 2fr 1fr 1fr 180px;
+    grid-template-areas:
+      'nav            nav            nav            nav'
+      'section-1      section-1      section-1      section-1'
+      'section-hero   section-hero   section-2      hire-btn'
+      'service-grid   service-grid   service-grid   service-grid'
+      'home-features  home-features  home-features  home-features'
+      'views          views          views          views'
+      'projects-label projects-label projects-label projects-label'
+      'footer         footer         footer         footer';
+  }
+
+  .page {
+    grid-template-columns: 2fr 1fr 1fr 180px;
+    grid-template-areas:
+      'section-1      section-1      section-1      section-1'
+      'section-hero   section-hero   section-2      hire-btn'
+      'service-grid   service-grid   service-grid   service-grid'
+      'home-features  home-features  home-features  home-features'
+      'views          views          views          views'
+      'projects-label projects-label projects-label projects-label'
+      'footer         footer         footer         footer';
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SECTION COLOURS & BASE STYLES
+   ════════════════════════════════════════════════════════════ */
+
+.section-1 {
+  background-color: #20B2AA;
+  border-radius: 15px;
+  padding: 20px 20px 0;
+  color: var(--white);
+}
+
+.section-hero {
+  background-color: #20B2AA;
+  padding: 0 20px 20px;
+  color: var(--white);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(15px, 3.5vw, 19px);
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+.section-2 {
+  background-color: whitesmoke;
+  padding: 20px;
+  color: var(--text-dark);
+}
+
+@media (max-width: 599px) {
+  .section-1 { border-radius: 10px; }
+}
+
+/* ── copy + mascot row inside section-1 ── */
+.copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.copy p { margin-bottom: 12px; }
+
+.mascot {
+  flex: 0 0 auto;
+  max-width: clamp(60px, 12vw, 100px);
+  animation: float 3s ease-in-out infinite, subtle-rotation 6s ease-in-out infinite;
+}
+
+.mascot img { width: 100%; height: auto; display: block; }
+
+.mascot img { width: 100%; height: auto; display: block; }
+
+/* Responsive section-1 border-radius on mobile */
+@media (max-width: 599px) {
+  .section-1 { border-radius: 10px; }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -44,17 +315,14 @@ body {
   font-display: swap;
   src: local('Bricolage Grotesque');
 }
-
-/* ════════════════════════════════════════════════════════════ */
-/* ═   2. NAVIGATION & BUTTONS  ═ */
-/* ════════════════════════════════════════════════════════════ */
-
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   padding: 16px 20px;
-  top: 0;
+  width: 100%;
   z-index: 50;
   background: #17155F;
   border-bottom: 3px solid var(--white);
@@ -148,16 +416,7 @@ nav button.active {
 /* ═   3. PAGE LAYOUT & ANIMATIONS  ═ */
 /* ════════════════════════════════════════════════════════════ */
 
-.page {
-  display: none;
-  position: relative;
-  z-index: 10;
-}
-
-.page.active {
-  display: block;
-  animation: fadeIn 0.4s ease;
-}
+/* page show/hide handled by grid section above */
 
 .section {
   padding: 28px 20px 0;
@@ -1659,20 +1918,23 @@ footer {
   66% { transform: translate(-60px, 50px); }
 }
 @media (max-width: 600px) {
-  /* Nav: stack buttons below logo */
+  /* Nav: logo on top, buttons wrap below */
   nav {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    padding: 12px 14px;
   }
   .nav-buttons {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
     width: 100%;
   }
   nav button {
-    flex: 1 1 auto;
-    padding: 6px 10px;
+    padding: 7px 8px;
     font-size: 0.72rem;
+    text-align: center;
   }
 
   /* Footer: single column */
