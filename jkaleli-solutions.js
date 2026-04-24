@@ -102,6 +102,68 @@ function closeDetail() {
 }
 
 /* -----------------------------
+   Roadmap modal (for img attribute)
+----------------------------- */
+function openRoadmapModal(stepElement) {
+  const overlay = document.getElementById("modal-overlay");
+  const modalImg = document.getElementById("modal-img");
+  const modalTitle = document.getElementById("modal-title");
+  const modalText = document.getElementById("modal-text");
+
+  if (!overlay || !modalImg || !modalTitle || !modalText) return;
+
+  const imgSrc = stepElement.getAttribute("img");
+  const title = stepElement.getAttribute("data-title");
+  const text = stepElement.getAttribute("data-text");
+
+  // Set content - use img element directly for better compatibility
+  if (imgSrc) {
+    modalImg.innerHTML = `<img src="${imgSrc}" alt="${title || 'Step image'}" style="width:100%;height:100%;object-fit:contain;">`;
+  } else {
+    modalImg.innerHTML = "";
+  }
+  modalTitle.textContent = title || "Step";
+  modalText.textContent = text || "";
+
+  // Show modal
+  overlay.classList.add("active");
+}
+
+/* -----------------------------
+   Service icon card popup
+----------------------------- */
+function openServiceIconModal(cardElement) {
+  const overlay = document.getElementById("modal-overlay");
+  const modalImg = document.getElementById("modal-img");
+  const modalTitle = document.getElementById("modal-title");
+  const modalText = document.getElementById("modal-text");
+
+  if (!overlay || !modalImg || !modalTitle || !modalText) return;
+
+  const iconDiv = cardElement.querySelector("[img]");
+  const imgSrc = iconDiv ? iconDiv.getAttribute("img") : null;
+  const titleSpan = cardElement.querySelector(".text-1");
+  const title = titleSpan ? titleSpan.textContent.trim() : "Service";
+
+  // Set content
+  if (imgSrc) {
+    modalImg.innerHTML = `<img src="${imgSrc}" alt="${title}" style="width:100%;height:100%;object-fit:contain;">`;
+  } else {
+    modalImg.innerHTML = "";
+  }
+  modalTitle.textContent = title;
+  modalText.textContent = "";
+
+  // Show modal
+  overlay.classList.add("active");
+}
+
+function closeRoadmapModal() {
+  const overlay = document.getElementById("modal-overlay");
+  if (overlay) overlay.classList.remove("active");
+}
+
+/* -----------------------------
    Background particle network
 ----------------------------- */
 function initParticleNetwork() {
@@ -247,18 +309,222 @@ function wireEvents() {
       return;
     }
 
+    // Service icon card click
+    const serviceIconCard = e.target.closest(".service-icon-card");
+    if (serviceIconCard) {
+      openServiceIconModal(serviceIconCard);
+      return;
+    }
+
+    // Roadmap step click (elements with data-title attribute in roadmap)
+    const roadStep = e.target.closest(".step-number[data-title]");
+    if (roadStep) {
+      openRoadmapModal(roadStep);
+      return;
+    }
+
+    // Close roadmap modal when clicking overlay
+    if (e.target.id === "modal-overlay") {
+      closeRoadmapModal();
+      return;
+    }
+
+    // Close button for roadmap modal
+    if (e.target.id === "road-modal-close") {
+      closeRoadmapModal();
+      return;
+    }
+
     // click outside content closes modal (optional)
     if (e.target.id === "service-detail") closeDetail();
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeDetail();
+    if (e.key === "Escape") {
+      closeDetail();
+      closeRoadmapModal();
+    }
   });
 }
 
 /* -----------------------------
-   Init
+   Service Request Popup
 ----------------------------- */
+const cards = [
+  {
+    icon: "{ }",
+    title: "Custom Development",
+    desc: "From custom applications to complex systems, we build scalable and secure solutions tailored to your business needs."
+  },
+  {
+    icon: "✦",
+    title: "UI/UX Design",
+    desc: "We craft intuitive, beautiful interfaces that delight users and drive engagement across all platforms."
+  },
+  {
+    icon: "◈",
+    title: "Digital Strategy",
+    desc: "From brand positioning to growth roadmaps, we help you build a clear path to measurable results."
+  },
+  {
+    icon: "⬡",
+    title: "Cloud & Infrastructure",
+    desc: "Reliable, scalable cloud setups with monitoring, CI/CD pipelines, and rock-solid security baked in."
+  }
+];
+
+let cardIndex = 0;
+let animating = false;
+
+// Elements
+const cardEl      = document.getElementById("card");
+const cardIcon    = document.getElementById("card-icon");
+const cardTitle   = document.getElementById("card-title");
+const cardDesc    = document.getElementById("card-desc");
+const dotsEl      = document.getElementById("dots");
+const prevBtn     = document.getElementById("prev-btn");
+const nextBtn     = document.getElementById("next-btn");
+const resetBtn    = document.getElementById("reset-btn");
+const submitBtn   = document.getElementById("submit-btn");
+const roleSelect  = document.getElementById("role-select");
+const wantSelect  = document.getElementById("want-select");
+
+// Popup elements
+const popupOverlay = document.getElementById("service-popup-overlay");
+const hireUsBtn = document.getElementById("hire-us-btn");
+const getStartedBtn = document.getElementById("get-started-btn");
+
+// Open popup
+function openServicePopup() {
+  if (popupOverlay) {
+    popupOverlay.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+// Close popup
+function closeServicePopup() {
+  if (popupOverlay) {
+    popupOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+}
+
+// Render card content
+function renderCard() {
+  if (!cardEl) return;
+  const card = cards[cardIndex];
+  cardIcon.textContent  = card.icon;
+  cardTitle.textContent = card.title;
+  cardDesc.textContent  = card.desc;
+  renderDots();
+}
+
+// Render dots
+function renderDots() {
+  if (!dotsEl) return;
+  dotsEl.innerHTML = "";
+  cards.forEach((_, i) => {
+    const dot = document.createElement("span");
+    dot.className = "dot" + (i === cardIndex ? " active" : "");
+    dot.addEventListener("click", () => goToCard(i));
+    dotsEl.appendChild(dot);
+  });
+}
+
+// Navigate to specific card
+function goToCard(index) {
+  if (animating || index === cardIndex || !cardEl) return;
+  const dir = index > cardIndex ? "anim-next" : "anim-prev";
+  animating = true;
+  cardEl.classList.add(dir);
+  setTimeout(() => {
+    cardIndex = index;
+    renderCard();
+    cardEl.classList.remove(dir);
+    animating = false;
+  }, 220);
+}
+
+// Arrow navigation
+function goNext() {
+  goToCard((cardIndex + 1) % cards.length);
+}
+
+function goPrev() {
+  goToCard((cardIndex - 1 + cards.length) % cards.length);
+}
+
+// Reset filters
+function resetFilters() {
+  if (roleSelect) roleSelect.value = "";
+  if (wantSelect) wantSelect.value = "";
+}
+
+// Submit - sends email
+function handleSubmit() {
+  if (!submitBtn || submitBtn.classList.contains("sent")) return;
+  
+  const role = roleSelect?.value || "Not specified";
+  const want = wantSelect?.value || "Not specified";
+  const service = cards[cardIndex]?.title || "Not specified";
+  
+  // Create mailto link
+  const subject = encodeURIComponent(`Service Request from ${role}`);
+  const body = encodeURIComponent(`Role: ${role}\nWants to: ${want}\nInterested in: ${service}\n\nSent via JKALELI Solutions website`);
+  window.location.href = `mailto:jkalelisolutions47@gmail.com?subject=${subject}&body=${body}`;
+  
+  submitBtn.classList.add("sent");
+  submitBtn.textContent = "✓ SENT!";
+  setTimeout(() => {
+    submitBtn.classList.remove("sent");
+    submitBtn.textContent = "SUBMIT";
+    closeServicePopup();
+    resetFilters();
+  }, 2200);
+}
+
+// Wire popup events
+function wirePopupEvents() {
+  if (prevBtn) prevBtn.addEventListener("click", goNext);
+  if (nextBtn) nextBtn.addEventListener("click", goPrev);
+  if (resetBtn) resetBtn.addEventListener("click", resetFilters);
+  if (submitBtn) submitBtn.addEventListener("click", handleSubmit);
+  
+  // Open popup buttons
+  if (hireUsBtn) {
+    hireUsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openServicePopup();
+    });
+  }
+  
+  if (getStartedBtn) {
+    getStartedBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openServicePopup();
+    });
+  }
+  
+  // Close on overlay click
+  if (popupOverlay) {
+    popupOverlay.addEventListener("click", (e) => {
+      if (e.target === popupOverlay) {
+        closeServicePopup();
+      }
+    });
+  }
+  
+  // Close on escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && popupOverlay?.classList.contains("active")) {
+      closeServicePopup();
+    }
+  });
+  
+  // Init card
+  renderCard();
+}
 function init() {
   // Ensure footer on initial active page
   const activePage = document.querySelector(".page.active");
@@ -267,6 +533,7 @@ function init() {
   injectFooterForPage(name);
 
   wireEvents();
+  wirePopupEvents();
 
   try { initParticleNetwork(); } catch (_) {}
   triggerScrollReveal();
@@ -277,49 +544,3 @@ if (document.readyState === "loading") {
 } else {
   init();
 }
-
-const overlay = document.getElementById('modal-overlay');
-const mImg = document.getElementById('modal-img');
-const mTitle = document.getElementById('modal-title');
-const mText = document.getElementById('modal-text');
-
-// Detect touch devices
-const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-function openModal(el) {
-  const title = el.getAttribute('data-title');
-  const text = el.getAttribute('data-text');
-  const imgPath = el.getAttribute('img');
-
-  mTitle.innerText = title;
-  mText.innerText = text;
-  mImg.style.backgroundImage = `url('${imgPath}')`;
-  
-  overlay.classList.add('active');
-}
-
-function closeModal() {
-  overlay.classList.remove('active');
-}
-
-// Select only the step numbers as triggers
-const triggers = document.querySelectorAll('.step-number');
-
-triggers.forEach(num => {
-  if (isTouch) {
-    // Mobile: Tap to open
-    num.addEventListener('click', (e) => {
-      e.stopPropagation();
-      openModal(num);
-    });
-  } else {
-    // Laptop: Hover to open, leave to close
-    num.addEventListener('mouseenter', () => openModal(num));
-    num.addEventListener('mouseleave', closeModal);
-  }
-});
-
-// For mobile: Tap overlay background to close
-overlay.addEventListener('click', (e) => {
-  if (e.target === overlay) closeModal();
-});
