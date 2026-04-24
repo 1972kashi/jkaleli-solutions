@@ -1387,8 +1387,8 @@ nav {
 }
 
 .select {
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 8px;
@@ -1570,7 +1570,7 @@ nav {
   letter-spacing: 0.18em;
 }
 
-.btn-submit:hover {
+.submit-btn:hover {
   background: #c62828;
 }
 
@@ -2424,8 +2424,9 @@ html {
 
 body {
   overflow-x: hidden;
-  -webkit-text-size-adjust: auto;
-  text-size-adjust: auto;
+ -webkit-text-size-adjust: 100%; 
+  -moz-text-size-adjust: 100%;    
+  text-size-adjust: 100%;
 }
 
 /* ── Images never overflow ── */
