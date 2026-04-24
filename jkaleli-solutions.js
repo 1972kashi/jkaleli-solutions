@@ -102,7 +102,7 @@ function closeDetail() {
 }
 
 /* -----------------------------
-   Roadmap modal (for img attribute)
+   Roadmap modal (for data-img attribute)
 ----------------------------- */
 function openRoadmapModal(stepElement) {
   const overlay = document.getElementById("modal-overlay");
@@ -112,7 +112,7 @@ function openRoadmapModal(stepElement) {
 
   if (!overlay || !modalImg || !modalTitle || !modalText) return;
 
-  const imgSrc = stepElement.getAttribute("img");
+  const imgSrc = stepElement.getAttribute("data-img");
   const title = stepElement.getAttribute("data-title");
   const text = stepElement.getAttribute("data-text");
 
@@ -130,32 +130,27 @@ function openRoadmapModal(stepElement) {
 }
 
 /* -----------------------------
-   Service icon card popup
+   Service icon card popup - Simple image lightbox
 ----------------------------- */
 function openServiceIconModal(cardElement) {
-  const overlay = document.getElementById("modal-overlay");
-  const modalImg = document.getElementById("modal-img");
-  const modalTitle = document.getElementById("modal-title");
-  const modalText = document.getElementById("modal-text");
+  const lightbox = document.getElementById("image-lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
 
-  if (!overlay || !modalImg || !modalTitle || !modalText) return;
+  if (!lightbox || !lightboxImg) return;
 
-  const iconDiv = cardElement.querySelector("[img]");
-  const imgSrc = iconDiv ? iconDiv.getAttribute("img") : null;
-  const titleSpan = cardElement.querySelector(".text-1");
-  const title = titleSpan ? titleSpan.textContent.trim() : "Service";
+  // Get image from data-img attribute
+  const iconDiv = cardElement.querySelector("[data-img]");
+  const imgSrc = iconDiv ? iconDiv.getAttribute("data-img") : null;
 
-  // Set content
   if (imgSrc) {
-    modalImg.innerHTML = `<img src="${imgSrc}" alt="${title}" style="width:100%;height:100%;object-fit:contain;">`;
-  } else {
-    modalImg.innerHTML = "";
+    lightboxImg.src = imgSrc;
+    lightbox.classList.add("active");
   }
-  modalTitle.textContent = title;
-  modalText.textContent = "";
+}
 
-  // Show modal
-  overlay.classList.add("active");
+function closeServiceLightbox() {
+  const lightbox = document.getElementById("image-lightbox");
+  if (lightbox) lightbox.classList.remove("active");
 }
 
 function closeRoadmapModal() {
@@ -335,6 +330,19 @@ function wireEvents() {
       return;
     }
 
+    // Close lightbox when clicking close button
+    const lightboxClose = e.target.closest(".lightbox-close");
+    if (lightboxClose) {
+      closeServiceLightbox();
+      return;
+    }
+
+    // Close lightbox when clicking outside image
+    if (e.target.id === "image-lightbox") {
+      closeServiceLightbox();
+      return;
+    }
+
     // click outside content closes modal (optional)
     if (e.target.id === "service-detail") closeDetail();
   });
@@ -343,6 +351,7 @@ function wireEvents() {
     if (e.key === "Escape") {
       closeDetail();
       closeRoadmapModal();
+      closeServiceLightbox();
     }
   });
 }
