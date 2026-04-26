@@ -130,27 +130,36 @@ function openRoadmapModal(stepElement) {
 }
 
 /* -----------------------------
-   Service icon card popup - Simple image lightbox
+   Service icon card popup - Card popup
 ----------------------------- */
 function openServiceIconModal(cardElement) {
-  const lightbox = document.getElementById("image-lightbox");
-  const lightboxImg = document.getElementById("lightbox-img");
+  const popup = document.getElementById("services-popup");
+  if (!popup) return;
 
-  if (!lightbox || !lightboxImg) return;
+  // Get the service name from the card
+  const textDiv = cardElement.querySelector(".text-1");
+  const serviceName = textDiv ? textDiv.textContent.trim() : "Our Service";
 
-  // Get image from data-img attribute
-  const iconDiv = cardElement.querySelector("[data-img]");
-  const imgSrc = iconDiv ? iconDiv.getAttribute("data-img") : null;
-
-  if (imgSrc) {
-    lightboxImg.src = imgSrc;
-    lightbox.classList.add("active");
+  // Update the card text based on the service
+  const cardText = popup.querySelector(".card__text");
+  if (cardText) {
+    const serviceDescriptions = {
+      "UX Design": "We design intuitive, user-friendly interfaces that enhance customer experiences and drive engagement.",
+      "Web Development": "We build robust, scalable web applications using modern technologies that power your business.",
+      "Startup Ideas": "We help transform your ideas into viable business concepts with strategic planning and execution.",
+      "Web Design": "We create visually stunning websites that capture your brand essence and captivate your audience.",
+      "App Development": "We develop cross-platform mobile applications that deliver seamless user experiences.",
+      "Search Engine Optimization": "We optimize your online presence to rank higher in search results and drive organic traffic."
+    };
+    cardText.textContent = serviceDescriptions[serviceName] || "We design intuitive, user-friendly interfaces that enhance customer experiences and drive engagement.";
   }
+
+  popup.classList.add("active");
 }
 
 function closeServiceLightbox() {
-  const lightbox = document.getElementById("image-lightbox");
-  if (lightbox) lightbox.classList.remove("active");
+  const popup = document.getElementById("services-popup");
+  if (popup) popup.classList.remove("active");
 }
 
 function closeRoadmapModal() {
@@ -330,15 +339,15 @@ function wireEvents() {
       return;
     }
 
-    // Close lightbox when clicking close button
-    const lightboxClose = e.target.closest(".lightbox-close");
-    if (lightboxClose) {
+    // Close popup when clicking close button
+    const popupClose = e.target.closest(".popup-close, .lightbox-close");
+    if (popupClose) {
       closeServiceLightbox();
       return;
     }
 
-    // Close lightbox when clicking outside image
-    if (e.target.id === "image-lightbox") {
+    // Close popup when clicking outside content
+    if (e.target.id === "services-popup" || e.target.id === "image-lightbox") {
       closeServiceLightbox();
       return;
     }
