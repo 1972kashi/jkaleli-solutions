@@ -118,7 +118,7 @@ function openRoadmapModal(stepElement) {
 
   // Set content - use img element directly for better compatibility
   if (imgSrc) {
-    modalImg.innerHTML = `<img src="${imgSrc}" alt="${title || 'Step image'}" style="width:100%;height:100%;object-fit:contain;">`;
+    modalImg.innerHTML = `<img src="${imgSrc}" alt="${title || 'Step image'}" style="width:100%;height:100%;object-fit:fill;">`;
   } else {
     modalImg.innerHTML = "";
   }
